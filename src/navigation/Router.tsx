@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { DrawerNavigator } from "./DrawerNavigator";
 import { useAppDispatch } from "@app/hooks";
-import { authMe } from "@app/redux/reducers/authReducer";
+import { authMe } from "@app/redux/reducers/userReducer";
 
 const Router = () => {
   const dispatch = useAppDispatch();

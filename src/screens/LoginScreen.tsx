@@ -1,37 +1,16 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { RootState } from "../redux/store";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
+import { useAppDispatch } from "@app/hooks";
+import { login } from "@app/redux/reducers/userReducer";
 
 export const LoginScreen = ({ navigation }) => {
-  const username = useSelector((state: RootState) => state.user.username);
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const [email, onChangeEmail] = useState("maria@mail.com");
+  const [password, onChangePassword] = useState("12345");
 
-  useEffect(() => {
-    if (username) {
-      navigation.navigate("home");
-    }
-  }, [username]);
-
-  const loginHandler = async () => {
-    try {
-      const res = await axios.post("https://api.escuelajs.co/api/v1/auth/login", {
-        email: "maria@mail.com",
-        password: "12345",
-      });
-      console.log("res", res.data.access_token);
-
-      if (res?.data?.access_token) {
-        AsyncStorage.setItem("token", res?.data?.access_token);
-      }
-    } catch (error) {
-      console.log(error, error);
-    }
+  const loginHandler = () => {
+    dispatch(login({ email, password }));
   };
-
-  // console.log("username ", username);
 
   return (
     <View
@@ -49,6 +28,21 @@ export const LoginScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={loginHandler}>
         <Text> LOG IN</Text>
       </TouchableOpacity>
+
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={onChangeEmail}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={onChangePassword}
+        />
+      </View>
     </View>
   );
 };
@@ -66,5 +60,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    padding: 15,
+    marginVertical: 10,
+    borderRadius: 5,
+    height: 55,
+    paddingVertical: 0,
   },
 });

@@ -4,3 +4,8 @@ export interface UserType {
   password: string;
   name: string;
 }
+
+export interface LoginDtoType {
+  email: string;
+  password: string;
+}
