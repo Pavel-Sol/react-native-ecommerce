@@ -1,7 +1,7 @@
 import React from "react";
+import { RootState } from "@app/redux/store";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 
 export const HomeScreen = ({ navigation }) => {
   const username = useSelector((state: RootState) => state.user.username);

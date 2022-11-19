@@ -1,7 +1,8 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { UserType } from "types/user";
+import { UserType } from "@app/types/user";
+import AuthAPI from "@app/api/authApi";
 
 type initialStateT = {
   username: string;
@@ -11,22 +12,24 @@ const initialState: initialStateT = {
   username: "",
 };
 
-export const login = createAsyncThunk<string, undefined>("auth/login", async (_, thunkAPI) => {
+export const authMe = createAsyncThunk<UserType, undefined>("auth/login", async (_, thunkAPI) => {
   try {
     const token = await AsyncStorage.getItem("token");
-    console.log("createAsyncThunk token from ls", token);
+    // console.log("createAsyncThunk token from ls", token);
 
-    const userData = await axios.get("https://api.escuelajs.co/api/v1/auth/profile", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
+    const response = await AuthAPI.authMe({
+      Authorization: "Bearer " + token,
     });
 
-    console.log("createAsyncThunk userData.data", userData);
+    console.log("createAsyncThunk userData.data", response.data);
 
-    return userData?.data?.username;
+    return response.data;
   } catch (e) {
-    console.log("createAsyncThunk ошибка ", e);
+    if (e.message === "ошибка авторизации") {
+      AsyncStorage.removeItem("token");
+    }
+
+    console.log("createAsyncThunk ошибка ", e.message);
     return thunkAPI.rejectWithValue("ошибка авторизации");
   }
 });
@@ -34,18 +37,15 @@ export const login = createAsyncThunk<string, undefined>("auth/login", async (_,
 export const authSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    setUsername: (state, action: PayloadAction<string>) => {
-      state.username = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.username = action.payload;
+    builder.addCase(authMe.fulfilled, (state, action) => {
+      state.username = action.payload.name;
     });
+    // builder.addCase(authMe.rejected, (state, action) => {
+    //   state.username = action.payload.name;
+    // });
   },
 });
-
-export const { setUsername } = authSlice.actions;
 
 export default authSlice.reducer;

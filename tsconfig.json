@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@redux": ["redux"]
+      "@app/*": ["src/*"]
     }
   },
   "extends": "expo/tsconfig.base"
