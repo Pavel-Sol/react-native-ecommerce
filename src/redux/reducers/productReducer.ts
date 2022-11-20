@@ -14,9 +14,9 @@ const initialState: initialStateT = {
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
-  async (params: string, thunkAPI) => {
+  async ({ params, category }: { params: string; category: number }, thunkAPI) => {
     try {
-      const response = await SERVICE_API.ProductAPI.fetchProducts(params);
+      const response = await SERVICE_API.ProductAPI.fetchProducts({ params, category });
       //  console.log("product/fetchProducts", response.data);
 
       return response.data;

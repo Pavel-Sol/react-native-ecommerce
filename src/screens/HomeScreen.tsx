@@ -20,6 +20,7 @@ export const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState<ProductType[]>([]);
   const offset = useAppSelector((state) => state.productFilterReducer.offset);
   const limit = useAppSelector((state) => state.productFilterReducer.limit);
+  const category = useAppSelector((state) => state.productFilterReducer.category);
   console.log("offset => ", offset);
 
   const loadMoreHandler = () => {
@@ -28,8 +29,12 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const params = `?offset=${offset}&limit=${limit}`;
-    dispatch(fetchProducts(params));
+    let params = `?offset=${offset}&limit=${limit}`;
+
+    if (offset === 0) setProducts([]);
+
+    // console.log("params ", params);
+    dispatch(fetchProducts({ params, category }));
   }, [offset]);
 
   useEffect(() => {
@@ -49,6 +54,7 @@ export const HomeScreen = ({ navigation }) => {
         <View style={s.textContent}>
           {/* <Text>{item.title}</Text> */}
           <Text style={s.price}>{item.price} рублей</Text>
+          <Text style={s.price}>{item.category.name}</Text>
         </View>
       </View>
     );
