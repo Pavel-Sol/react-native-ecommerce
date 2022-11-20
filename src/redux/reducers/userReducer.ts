@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoginDtoType, UserType } from "@app/types/user";
-import { AuthAPI } from "@app/api/authApi";
 import { LS } from "@app/utils";
+import { Slices } from "@app/constants";
+import { SERVICE_API } from "@app/api";
 
 type initialStateT = {
   username: string;
@@ -18,7 +19,7 @@ export const authMe = createAsyncThunk<UserType, undefined>("user/authMe", async
 
     // console.log("createAsyncThunk token from ls", token);
 
-    const response = await AuthAPI.authMe({
+    const response = await SERVICE_API.UserAPI.authMe({
       Authorization: "Bearer " + token,
     });
 
@@ -37,7 +38,7 @@ export const authMe = createAsyncThunk<UserType, undefined>("user/authMe", async
 
 export const login = createAsyncThunk("user/login", async (payload: LoginDtoType, thunkAPI) => {
   try {
-    const response = await AuthAPI.login(payload);
+    const response = await SERVICE_API.UserAPI.login(payload);
     console.log("user/login", response?.data?.access_token);
 
     const token = response?.data?.access_token;
@@ -52,7 +53,7 @@ export const login = createAsyncThunk("user/login", async (payload: LoginDtoType
 });
 
 export const userSlice = createSlice({
-  name: "user",
+  name: Slices.user,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

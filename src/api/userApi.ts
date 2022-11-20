@@ -1,7 +1,7 @@
 import RestAPI from "./restApi";
 import { AxiosResponse } from "axios";
 
-export abstract class AuthAPI {
+export abstract class UserAPI {
   public static authMe = (authHeaders: any): Promise<AxiosResponse> =>
     RestAPI.get("auth/profile", undefined, authHeaders);
 
