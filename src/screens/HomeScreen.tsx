@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
-import { fetchProducts } from "@app/redux/reducers/productReducer";
+import { fetchProducts } from "@app/redux/asyncActions";
 import { setOffset } from "@app/redux/reducers/productFilterReducer";
 import { ProductType } from "@app/types/product";
 

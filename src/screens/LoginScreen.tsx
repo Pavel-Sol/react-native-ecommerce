@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { useAppDispatch } from "@app/hooks";
-import { login } from "@app/redux/reducers/userReducer";
+import { login } from "@app/redux/asyncActions";
 
 export const LoginScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
