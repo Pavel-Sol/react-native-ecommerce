@@ -30,12 +30,11 @@ export const HomeScreen = ({ navigation }) => {
 
   useEffect(() => {
     let params = `?offset=${offset}&limit=${limit}`;
-
     if (offset === 0) setProducts([]);
 
     // console.log("params ", params);
     dispatch(fetchProducts({ params, category }));
-  }, [offset]);
+  }, [offset, category]);
 
   useEffect(() => {
     setProducts([...products, ...productsPart]);
@@ -43,7 +42,9 @@ export const HomeScreen = ({ navigation }) => {
 
   const Item = ({ item }) => {
     return (
-      <View style={s.itemWrapper}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("productDetail", { productId: item.id })}
+        style={s.itemWrapper}>
         <Image
           style={s.image}
           source={{
@@ -56,7 +57,7 @@ export const HomeScreen = ({ navigation }) => {
           <Text style={s.price}>{item.price} рублей</Text>
           <Text style={s.price}>{item.category.name}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 

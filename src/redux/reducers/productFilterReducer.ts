@@ -21,8 +21,8 @@ export const productFilterSlice = createSlice({
       state.offset = payload;
     },
     setCategory(state, { payload }: PayloadAction<number | null>) {
-      state.category = payload;
       state.offset = 0;
+      state.category = payload;
     },
   },
 });
