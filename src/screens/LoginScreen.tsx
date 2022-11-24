@@ -13,16 +13,11 @@ export const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}>
+    <View>
       <Text>LoginScreen!!!</Text>
 
       <TouchableOpacity onPress={() => navigation.navigate("home")} style={styles.button}>
-        <Text>Go To login</Text>
+        <Text>Go To home</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.button} onPress={loginHandler}>

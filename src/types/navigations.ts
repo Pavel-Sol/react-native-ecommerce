@@ -3,4 +3,5 @@ export type DrawerStackParams = {
   productDetail: { productId: number };
   filter: undefined;
   auth: undefined;
+  form: undefined;
 };
