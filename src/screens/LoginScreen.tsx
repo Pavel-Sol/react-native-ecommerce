@@ -1,48 +1,38 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
-import { useAppDispatch } from "@app/hooks";
-import { login } from "@app/redux/asyncActions";
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { LoginForm } from "@app/components/forms/LoginForm";
+import { ButtonPrimary } from "@app/components/button/ButtonPrimary";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useAppDispatch, useAppSelector } from "@app/hooks";
 
 export const LoginScreen = ({ navigation }) => {
-  const dispatch = useAppDispatch();
-  const [email, onChangeEmail] = useState("maria@mail.com");
-  const [password, onChangePassword] = useState("12345");
+  const username = useAppSelector((state) => state.user.username);
 
-  const loginHandler = () => {
-    dispatch(login({ email, password }));
-  };
+  // useEffect(() => {
+  //   console.log("work");
+  //   if (username) navigation.navigate("home");
+  // }, [username]);
 
   return (
-    <View>
-      <Text>LoginScreen!!!</Text>
+    <View style={s.container}>
+      <LoginForm />
 
-      <TouchableOpacity onPress={() => navigation.navigate("home")} style={styles.button}>
-        <Text>Go To home</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.button} onPress={loginHandler}>
-        <Text> LOG IN</Text>
-      </TouchableOpacity>
-
-      <View>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={onChangeEmail}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={onChangePassword}
-        />
-      </View>
+      {/* <ButtonPrimary onPress={() => navigation.navigate("home")} style={s.button}>
+        Go To home
+      </ButtonPrimary> */}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+    backgroundColor: "#0000001a",
+  },
+
   button: {
     backgroundColor: "blue",
     padding: 17,
@@ -50,19 +40,5 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 18,
     width: 180,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 5,
-    height: 55,
-    paddingVertical: 0,
   },
 });
