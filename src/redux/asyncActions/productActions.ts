@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SERVICE_API } from "@app/api";
+import { ProductType } from "@app/types/product";
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
@@ -15,3 +16,15 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
+
+export const getProduct = createAsyncThunk("product/getProduct", async (id: number, thunkAPI) => {
+  try {
+    const response = await SERVICE_API.ProductAPI.getProduct(id);
+    // console.log("product/getProduct", response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log("error product/fetchProducts thunk => ", error);
+    return thunkAPI.rejectWithValue("не удалось загрузить товар");
+  }
+});
