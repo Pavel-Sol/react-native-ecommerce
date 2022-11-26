@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Slices } from "@app/constants";
+import { Slices } from "@app/constants/slices";
 import { ProductType } from "@app/types/product";
 import { fetchProducts } from "@app/redux/asyncActions";
 

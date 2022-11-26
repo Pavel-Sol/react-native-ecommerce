@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { authMe } from "@app/redux/asyncActions";
-import { Slices } from "@app/constants";
+import { Slices } from "@app/constants/slices";
 
 type initialStateT = {
   username: string;

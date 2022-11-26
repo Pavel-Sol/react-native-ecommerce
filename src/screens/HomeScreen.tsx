@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { fetchProducts } from "@app/redux/asyncActions";
 import { setOffset } from "@app/redux/reducers/productFilterReducer";
 import { ProductType } from "@app/types/product";
+import { Card } from "@app/components/cards";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -40,27 +41,6 @@ export const HomeScreen = ({ navigation }) => {
     setProducts([...products, ...productsPart]);
   }, [productsPart]);
 
-  const Item = ({ item }) => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate("productDetail", { productId: item.id })}
-        style={s.itemWrapper}>
-        <Image
-          style={s.image}
-          source={{
-            uri: item.images[0],
-          }}
-        />
-
-        <View style={s.textContent}>
-          {/* <Text>{item.title}</Text> */}
-          <Text style={s.price}>{item.price} рублей</Text>
-          <Text style={s.price}>{item.category.name}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   const renderLoader = () => {
     return (
       <View style={s.loaderWrapper}>
@@ -76,7 +56,7 @@ export const HomeScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <Text>HomeScreen!!!</Text>
+        <Text>HomeScreen!!11!</Text>
         {username && <Text>{username}</Text>}
 
         <TouchableOpacity onPress={() => navigation.navigate("auth")} style={s.button}>
@@ -87,7 +67,7 @@ export const HomeScreen = ({ navigation }) => {
       <View style={s.cardList}>
         <FlatList
           data={products}
-          renderItem={Item}
+          renderItem={({ item }) => <Card item={item} />}
           // keyExtractor={(item) => item.id}
           horizontal={false}
           numColumns={2}

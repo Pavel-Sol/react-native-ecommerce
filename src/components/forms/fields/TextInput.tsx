@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Colors } from "@app/config/constant";
+import { Colors } from "@app/constants/colors";
 import { Controller, Control } from "react-hook-form";
 import { Text, TextInput as RNTextInput, StyleSheet, TextInputProps } from "react-native";
 

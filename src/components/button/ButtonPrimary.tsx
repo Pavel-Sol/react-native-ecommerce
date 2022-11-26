@@ -1,5 +1,5 @@
 import React from "react";
-import { Colors } from "@app/config/constant";
+import { Colors } from "@app/constants/colors";
 import { TouchableOpacity, Text, StyleSheet, ViewStyle } from "react-native";
 
 interface IButtonPrimary {

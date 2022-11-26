@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Slices } from "@app/constants";
+import { Slices } from "@app/constants/slices";
 
 type initialStateT = {
   offset: number;
