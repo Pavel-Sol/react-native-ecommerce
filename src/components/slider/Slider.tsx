@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { View, FlatList, StyleSheet, Animated } from "react-native";
 import { SliderItem } from "./SliderItem";
 import { SliderPagination } from "./SliderPagination";
@@ -10,6 +11,14 @@ interface ISliderProps {
 export const Slider = ({ data = [] }: ISliderProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = useState(0);
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => {
+  //       setIndex(0);
+  //     };
+  //   }, [])
+  // );
 
   const handleOnScroll = (event: any) => {
     Animated.event(
