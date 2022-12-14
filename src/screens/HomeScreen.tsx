@@ -13,6 +13,8 @@ import { fetchProducts } from "@app/redux/asyncActions";
 import { setOffset } from "@app/redux/reducers/productFilterReducer";
 import { ProductType } from "@app/types/product";
 import { Card } from "@app/components/cards";
+import { LS } from "@app/utils";
+import { setCartList } from "@app/redux/reducers/cartReducer";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -22,7 +24,17 @@ export const HomeScreen = ({ navigation }) => {
   const offset = useAppSelector((state) => state.productFilterReducer.offset);
   const limit = useAppSelector((state) => state.productFilterReducer.limit);
   const category = useAppSelector((state) => state.productFilterReducer.category);
-  console.log("offset => ", offset);
+  // console.log("offset => ", offset);
+
+  useEffect(() => {
+    const loadCartListFromLS = async () => {
+      const jsonCartListFromLS = await LS.getItem("cartList");
+      const cartListFromLS = JSON.parse(jsonCartListFromLS);
+      dispatch(setCartList(cartListFromLS));
+    };
+
+    loadCartListFromLS();
+  }, []);
 
   const loadMoreHandler = () => {
     const updatedOffset = offset + limit;

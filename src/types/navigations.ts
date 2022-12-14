@@ -4,4 +4,5 @@ export type DrawerStackParams = {
   filter: undefined;
   auth: undefined;
   form: undefined;
+  cart: undefined;
 };

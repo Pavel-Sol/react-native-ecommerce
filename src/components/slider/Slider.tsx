@@ -3,6 +3,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { View, FlatList, StyleSheet, Animated } from "react-native";
 import { SliderItem } from "./SliderItem";
 import { SliderPagination } from "./SliderPagination";
+import { ButtonPrimary } from "../button/ButtonPrimary";
 
 interface ISliderProps {
   data: string[];
@@ -11,6 +12,9 @@ interface ISliderProps {
 export const Slider = ({ data = [] }: ISliderProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = useState(0);
+
+  // const [count, setCount] = useState(0);
+  // console.log("count ", count);
 
   // useFocusEffect(
   //   useCallback(() => {
@@ -57,6 +61,7 @@ export const Slider = ({ data = [] }: ISliderProps) => {
         />
       </View>
       <SliderPagination data={data} scrollX={scrollX} index={index} />
+      {/* <ButtonPrimary onPress={() => setCount(count + 1)}>+</ButtonPrimary> */}
     </>
   );
 };

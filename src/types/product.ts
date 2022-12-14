@@ -11,4 +11,5 @@ export interface ProductType {
   description: string;
   category: CategoryType;
   images: string[];
+  count?: number;
 }

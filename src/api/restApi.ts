@@ -10,7 +10,7 @@ class RestAPI {
   handleSuccess = (response: AxiosResponse): AxiosResponse => response;
 
   handleError = (error: AxiosError): Promise<object> | void => {
-    console.log("restApi error!!!!!!!! ", error);
+    // console.log("restApi error!!!!!!!! ", error);
 
     switch (error?.response?.status) {
       case 401:

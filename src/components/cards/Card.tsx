@@ -1,17 +1,43 @@
 import React from "react";
+import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { AntDesign } from "@expo/vector-icons";
 import { Image, TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { ProductType } from "@app/types/product";
 import { Colors } from "@app/constants/colors";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { LS } from "@app/utils";
+import { setCartList } from "@app/redux/reducers/cartReducer";
 
 interface ICardProps {
   item: ProductType;
 }
 
 export const Card = ({ item }: ICardProps) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const cartList = useAppSelector((state) => state.cart.cartList);
+  const matchInCart = cartList.find((elem) => elem.id === item.id);
+
+  const handleAddToCart = async (product: ProductType) => {
+    const jsonCartListFromLS = await LS.getItem("cartList");
+    const cartListFromLS = JSON.parse(jsonCartListFromLS);
+    const match = cartListFromLS.find((item: ProductType) => item.id === product.id);
+
+    if (match) {
+      cartListFromLS.forEach((item: ProductType) => {
+        match.id === item.id ? (item.count += 1) : null;
+      });
+
+      dispatch(setCartList(cartListFromLS));
+      LS.setItem("cartList", JSON.stringify(cartListFromLS));
+    } else {
+      const productWithCount = { ...product, count: 1 };
+
+      dispatch(setCartList([...cartListFromLS, productWithCount]));
+      LS.setItem("cartList", JSON.stringify([...cartListFromLS, productWithCount]));
+    }
+  };
 
   return (
     <View style={s.itemWrapper}>
@@ -26,7 +52,7 @@ export const Card = ({ item }: ICardProps) => {
           }}
         />
 
-        <AntDesign name="hearto" size={24} color={Colors.primary} style={s.iconLike} />
+        {/* <AntDesign name="hearto" size={24} color={Colors.primary} style={s.iconLike} /> */}
 
         <View style={s.textContent}>
           <Text style={s.title}>{item.title}</Text>
@@ -36,7 +62,10 @@ export const Card = ({ item }: ICardProps) => {
               <Text style={s.categoryName}>{item.category.name}</Text>
             </View>
 
-            <AntDesign name="pluscircle" size={44} color={Colors.primary} />
+            <TouchableOpacity style={s.cartButton} onPress={() => handleAddToCart(item)}>
+              <AntDesign name="shoppingcart" size={34} color={Colors.primary} />
+              {matchInCart && <Text style={s.cartCount}>{matchInCart.count}</Text>}
+            </TouchableOpacity>
           </View>
         </View>
       </TouchableOpacity>
@@ -96,5 +125,21 @@ const s = StyleSheet.create({
     position: "absolute",
     top: 7,
     right: 7,
+  },
+
+  cartButton: {
+    position: "relative",
+  },
+
+  cartCount: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    backgroundColor: Colors.dark,
+    color: Colors.white,
+    fontSize: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 2,
+    borderRadius: 10,
   },
 });

@@ -5,7 +5,6 @@ import { SERVICE_API } from "@app/api";
 
 export const authMe = createAsyncThunk<UserType, undefined>("user/authMe", async (_, thunkAPI) => {
   try {
-    // const token = await LS.getItem("token");
     const token = await LS.getItem("token");
 
     // console.log("createAsyncThunk token from ls", token);
