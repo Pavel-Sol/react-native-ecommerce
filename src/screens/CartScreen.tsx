@@ -3,10 +3,62 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ScrollView } from "rea
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { AntDesign } from "@expo/vector-icons";
 import { Colors } from "@app/constants/colors";
+import { LS } from "@app/utils";
+import { ProductType } from "@app/types/product";
+import { setCartList } from "@app/redux/reducers/cartReducer";
 
 export const CartScreen = () => {
+  const dispatch = useAppDispatch();
   const cartList = useAppSelector((state) => state.cart.cartList);
-  // console.log("cartList", cartList);
+
+  const handleIncreaseCount = async (product: ProductType) => {
+    const jsonCartListFromLS = await LS.getItem("cartList");
+    const cartListFromLS = JSON.parse(jsonCartListFromLS);
+    const match = cartListFromLS.find((item: ProductType) => item.id === product.id);
+
+    if (match) {
+      const updatedCartList = cartListFromLS.map((item: ProductType) => {
+        if (item.id === match.id) {
+          return { ...item, count: item.count + 1 };
+        }
+        return item;
+      });
+
+      dispatch(setCartList(updatedCartList));
+      LS.setItem("cartList", JSON.stringify(updatedCartList));
+    }
+  };
+
+  const handleDecreaseCount = async (product: ProductType) => {
+    const jsonCartListFromLS = await LS.getItem("cartList");
+    const cartListFromLS = JSON.parse(jsonCartListFromLS);
+    const match = cartListFromLS.find((item: ProductType) => item.id === product.id);
+
+    if (match && match.count > 1) {
+      const updatedCartList = cartListFromLS.map((item: ProductType) => {
+        if (item.id === match.id) {
+          return { ...item, count: item.count - 1 };
+        }
+        return item;
+      });
+
+      dispatch(setCartList(updatedCartList));
+      LS.setItem("cartList", JSON.stringify(updatedCartList));
+    }
+  };
+
+  const handleDeleteItem = async (product: ProductType) => {
+    const jsonCartListFromLS = await LS.getItem("cartList");
+    const cartListFromLS = JSON.parse(jsonCartListFromLS);
+    const match = cartListFromLS.find((item: ProductType) => item.id === product.id);
+
+    if (match) {
+      const updatedCartList = cartListFromLS.filter((item: ProductType) => item.id !== match.id);
+
+      dispatch(setCartList(updatedCartList));
+      LS.setItem("cartList", JSON.stringify(updatedCartList));
+    }
+  };
 
   return (
     <ScrollView style={s.container}>
@@ -22,20 +74,26 @@ export const CartScreen = () => {
             />
 
             <View style={s.cartItemRight}>
-              <Text style={s.cartItemTitle}>{item.title}</Text>
+              <View style={s.row}>
+                <Text style={s.cartItemTitle}>{item.title}</Text>
+                <TouchableOpacity onPress={() => handleDeleteItem(item)}>
+                  <AntDesign name="delete" size={24} color={Colors.basicGray} />
+                </TouchableOpacity>
+              </View>
 
               <View style={s.row}>
                 <View style={s.counter}>
-                  <TouchableOpacity>
-                    <AntDesign name="pluscircle" size={34} color={Colors.primary} />
+                  <TouchableOpacity onPress={() => handleDecreaseCount(item)}>
+                    <AntDesign name="minuscircle" size={34} color={Colors.primary} />
                   </TouchableOpacity>
                   <View style={s.count}>
                     <Text>{item.count}</Text>
                   </View>
-                  <TouchableOpacity>
-                    <AntDesign name="minuscircle" size={34} color={Colors.primary} />
+                  <TouchableOpacity onPress={() => handleIncreaseCount(item)}>
+                    <AntDesign name="pluscircle" size={34} color={Colors.primary} />
                   </TouchableOpacity>
                 </View>
+
                 <Text style={s.cartItemPrice}>$ {item.price * item.count}</Text>
               </View>
             </View>
@@ -52,7 +110,7 @@ const s = StyleSheet.create({
   },
   cartItem: {
     flexDirection: "row",
-    marginBottom: 10,
+    marginBottom: 15,
     backgroundColor: Colors.white,
     borderRadius: 6,
   },
@@ -67,6 +125,8 @@ const s = StyleSheet.create({
   cartItemRight: {
     flex: 1,
     padding: 5,
+    paddingRight: 10,
+    paddingBottom: 10,
     justifyContent: "space-between",
   },
 
@@ -81,7 +141,6 @@ const s = StyleSheet.create({
 
   counter: {
     flexDirection: "row",
-    paddingBottom: 10,
     paddingLeft: 10,
   },
   count: {
@@ -89,5 +148,7 @@ const s = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  cartItemPrice: {},
+  cartItemPrice: {
+    alignSelf: "flex-end",
+  },
 });
