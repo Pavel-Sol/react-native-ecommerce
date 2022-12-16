@@ -10,6 +10,7 @@ import { setCartList } from "@app/redux/reducers/cartReducer";
 export const CartScreen = () => {
   const dispatch = useAppDispatch();
   const cartList = useAppSelector((state) => state.cart.cartList);
+  const totalPrice = cartList.reduce((acc, item) => acc + item.count * item.price, 0);
 
   const handleIncreaseCount = async (product: ProductType) => {
     const jsonCartListFromLS = await LS.getItem("cartList");
@@ -60,6 +61,14 @@ export const CartScreen = () => {
     }
   };
 
+  if (cartList.length === 0) {
+    return (
+      <View style={s.cartEmpty}>
+        <Text style={s.cartEmptyText}>Nothing has been added to the cart yet !</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={s.container}>
       {!!cartList.length &&
@@ -99,11 +108,28 @@ export const CartScreen = () => {
             </View>
           </View>
         ))}
+
+      <View style={s.totalRow}>
+        <Text style={s.totalTitle}>Total:</Text>
+        <Text style={s.totalPrice}>$ {totalPrice}</Text>
+      </View>
     </ScrollView>
   );
 };
 
 const s = StyleSheet.create({
+  cartEmpty: {
+    marginTop: 30,
+    alignItems: "center",
+  },
+
+  cartEmptyText: {
+    fontSize: 20,
+    fontWeight: "600",
+    borderBottomWidth: 2,
+    borderColor: Colors.primary,
+  },
+
   container: {
     padding: 10,
     backgroundColor: Colors.lightDark,
@@ -150,5 +176,22 @@ const s = StyleSheet.create({
   },
   cartItemPrice: {
     alignSelf: "flex-end",
+  },
+
+  totalRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 20,
+  },
+
+  totalTitle: {
+    fontSize: 20,
+    color: Colors.basicGray,
+    fontWeight: "700",
+    marginRight: 10,
+  },
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: "700",
   },
 });

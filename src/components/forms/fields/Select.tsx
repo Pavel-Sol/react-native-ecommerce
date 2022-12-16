@@ -1,7 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Controller, Control } from "react-hook-form";
 import RNPickerSelect from "react-native-picker-select";
+import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import { Colors } from "@app/constants/colors";
 
 interface ISelect {
   control: Control<any>;
@@ -17,7 +19,7 @@ export const Select = ({ control, name, options, callback }: ISelect) => {
       render={({ field: { onChange, value } }) => {
         return (
           <RNPickerSelect
-            style={{ ...pickerSelectStyles, placeholder: { color: "#acabab" } }}
+            style={{ ...pickerSelectStyles }}
             onValueChange={(e) => {
               onChange(e);
               callback && callback(e);
@@ -29,6 +31,10 @@ export const Select = ({ control, name, options, callback }: ISelect) => {
             value={value}
             items={options}
             useNativeAndroidPickerStyle={false}
+            // @ts-ignore
+            Icon={() => (
+              <AntDesign name="caretdown" size={18} color={Colors.dark} style={s.selectIcon} />
+            )}
           />
         );
       }}
@@ -42,8 +48,18 @@ export const Select = ({ control, name, options, callback }: ISelect) => {
 const pickerSelectStyles = StyleSheet.create({
   inputAndroid: {
     fontSize: 20,
-    borderRadius: 30,
-    color: "white",
-    padding: 25,
+    borderRadius: 10,
+    color: Colors.dark,
+    padding: 20,
+    backgroundColor: Colors.white,
+  },
+
+  placeholder: { color: Colors.dark },
+});
+
+const s = StyleSheet.create({
+  selectIcon: {
+    top: 25,
+    right: 40,
   },
 });

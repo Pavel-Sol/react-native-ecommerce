@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { fetchProducts } from "@app/redux/asyncActions";
 import { setOffset } from "@app/redux/reducers/productFilterReducer";
@@ -15,15 +16,16 @@ import { ProductType } from "@app/types/product";
 import { Card } from "@app/components/cards";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
+import { Colors } from "@app/constants/colors";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.user.username);
   const productsPart = useAppSelector((state) => state.product.productsPart);
   const [products, setProducts] = useState<ProductType[]>([]);
-  const offset = useAppSelector((state) => state.productFilterReducer.offset);
-  const limit = useAppSelector((state) => state.productFilterReducer.limit);
-  const category = useAppSelector((state) => state.productFilterReducer.category);
+  const offset = useAppSelector((state) => state.productFilter.offset);
+  const limit = useAppSelector((state) => state.productFilter.limit);
+  const category = useAppSelector((state) => state.productFilter.category);
   // console.log("offset => ", offset);
 
   useEffect(() => {
@@ -76,6 +78,11 @@ export const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
+      <TouchableOpacity onPress={() => navigation.navigate("filter")} style={s.filtersButton}>
+        <Text style={s.filtersButtonText}>Filters</Text>
+        <FontAwesome name="filter" size={24} color={Colors.primary} />
+      </TouchableOpacity>
+
       <View style={s.cardList}>
         <FlatList
           data={products}
@@ -93,6 +100,16 @@ export const HomeScreen = ({ navigation }) => {
 };
 
 const s = StyleSheet.create({
+  filtersButton: {
+    flexDirection: "row",
+    marginLeft: "auto",
+    marginRight: 20,
+  },
+  filtersButtonText: {
+    marginRight: 10,
+    color: Colors.primary,
+  },
+
   cardList: {
     paddingBottom: 40,
   },

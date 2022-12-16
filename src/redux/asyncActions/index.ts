@@ -1,4 +1,4 @@
 export { authMe } from "./userActions";
 export { login } from "./userActions";
 
-export { fetchProducts, getProduct } from "./productActions";
+export { fetchProducts, getProduct, fetchCategories } from "./productActions";

@@ -28,3 +28,15 @@ export const getProduct = createAsyncThunk("product/getProduct", async (id: numb
     return thunkAPI.rejectWithValue("не удалось загрузить товар");
   }
 });
+
+export const fetchCategories = createAsyncThunk("product/fetchCategories", async (_, thunkAPI) => {
+  try {
+    const response = await SERVICE_API.CategoryAPI.fetchCategories();
+    // console.log("fetchCategories", response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log("error product/fetchCategories thunk => ", error);
+    return thunkAPI.rejectWithValue("не удалось загрузить категории");
+  }
+});
