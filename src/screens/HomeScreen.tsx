@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   FlatList,
-  Image,
   ActivityIndicator,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
@@ -22,6 +21,7 @@ export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
   const username = useAppSelector((state) => state.user.username);
   const productsPart = useAppSelector((state) => state.product.productsPart);
+  const loading = useAppSelector((state) => state.product.loading);
   const [products, setProducts] = useState<ProductType[]>([]);
   const offset = useAppSelector((state) => state.productFilter.offset);
   const limit = useAppSelector((state) => state.productFilter.limit);
@@ -58,7 +58,7 @@ export const HomeScreen = ({ navigation }) => {
   const renderLoader = () => {
     return (
       <View style={s.loaderWrapper}>
-        <ActivityIndicator size="large" color="blue" />
+        {loading && <ActivityIndicator size="large" color="blue" />}
       </View>
     );
   };
@@ -70,7 +70,6 @@ export const HomeScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <Text>HomeScreen!!11!</Text>
         {username && <Text>{username}</Text>}
 
         <TouchableOpacity onPress={() => navigation.navigate("auth")} style={s.button}>
@@ -104,6 +103,7 @@ const s = StyleSheet.create({
     flexDirection: "row",
     marginLeft: "auto",
     marginRight: 20,
+    marginBottom: 15,
   },
   filtersButtonText: {
     marginRight: 10,
@@ -152,6 +152,6 @@ const s = StyleSheet.create({
   },
   loaderWrapper: {
     paddingTop: 16,
-    paddingBottom: 200,
+    paddingBottom: 250,
   },
 });

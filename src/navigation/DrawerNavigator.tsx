@@ -22,7 +22,13 @@ export const DrawerNavigator = () => {
         })}
       />
 
-      <Drawer.Screen name="filter" component={FilterScreen} />
+      <Drawer.Screen
+        name="filter"
+        component={FilterScreen}
+        options={() => ({
+          drawerItemStyle: { display: "none" },
+        })}
+      />
       <Drawer.Screen
         name="auth"
         component={AuthNavigator}
