@@ -64,19 +64,7 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-        }}>
-        {username && <Text>{username}</Text>}
-
-        <TouchableOpacity onPress={() => navigation.navigate("auth")} style={s.button}>
-          <Text>Go To login</Text>
-        </TouchableOpacity>
-      </View>
-
+    <View style={s.container}>
       <TouchableOpacity onPress={() => navigation.navigate("filter")} style={s.filtersButton}>
         <Text style={s.filtersButtonText}>Filters</Text>
         <FontAwesome name="filter" size={24} color={Colors.primary} />
@@ -99,6 +87,9 @@ export const HomeScreen = ({ navigation }) => {
 };
 
 const s = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
   filtersButton: {
     flexDirection: "row",
     marginLeft: "auto",
@@ -114,42 +105,6 @@ const s = StyleSheet.create({
     paddingBottom: 40,
   },
 
-  button: {
-    backgroundColor: "green",
-    padding: 17,
-    margin: 10,
-    borderRadius: 5,
-    fontSize: 18,
-    width: 180,
-  },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-
-  itemWrapper: {
-    // flexDirection: "row",
-    width: "50%",
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderColor: "#ddd",
-  },
-
-  image: {
-    width: 60,
-    height: 60,
-    // marginRight: 30,
-  },
-
-  textContent: {
-    justifyContent: "space-around",
-  },
-
-  price: {
-    fontSize: 20,
-  },
   loaderWrapper: {
     paddingTop: 16,
     paddingBottom: 250,
