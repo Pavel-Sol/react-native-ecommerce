@@ -11,15 +11,14 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { fetchProducts } from "@app/redux/asyncActions";
 import { setOffset } from "@app/redux/reducers/productFilterReducer";
+import { setCartList } from "@app/redux/reducers/cartReducer";
 import { ProductType } from "@app/types/product";
 import { Card } from "@app/components/cards";
 import { LS } from "@app/utils";
-import { setCartList } from "@app/redux/reducers/cartReducer";
 import { Colors } from "@app/constants/colors";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const username = useAppSelector((state) => state.user.username);
   const productsPart = useAppSelector((state) => state.product.productsPart);
   const loading = useAppSelector((state) => state.product.loading);
   const [products, setProducts] = useState<ProductType[]>([]);

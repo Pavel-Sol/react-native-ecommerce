@@ -13,7 +13,11 @@ const initialState: initialStateT = {
 export const userSlice = createSlice({
   name: Slices.user,
   initialState,
-  reducers: {},
+  reducers: {
+    logOut(state) {
+      state.username = "";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(authMe.fulfilled, (state, action) => {
       state.username = action.payload.name;
@@ -23,5 +27,7 @@ export const userSlice = createSlice({
     });
   },
 });
+
+export const { logOut } = userSlice.actions;
 
 export default userSlice.reducer;
