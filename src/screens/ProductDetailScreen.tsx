@@ -10,6 +10,7 @@ import { ButtonPrimary } from "@app/components/button/ButtonPrimary";
 import { ProductType } from "@app/types/product";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
+import { DetailSkeleton } from "@app/components/skeletons/detatailSceleton";
 
 type ProductDetailScreenProps = NativeStackScreenProps<DrawerStackParams, "productDetail">;
 
@@ -17,6 +18,7 @@ export const ProductDetailScreen = ({ route }: ProductDetailScreenProps) => {
   const dispatch = useAppDispatch();
   const productId = route.params.productId;
   const product = useAppSelector((state) => state.product.product);
+  const loading = useAppSelector((state) => state.product.loading);
   // console.log("product ", product);
 
   useEffect(() => {
@@ -43,10 +45,9 @@ export const ProductDetailScreen = ({ route }: ProductDetailScreenProps) => {
     }
   };
 
-  // const show = async () => {
-  //   const cartList = await LS.getItem("cartList");
-  //   console.log("cartList ", cartList);
-  // };
+  if (loading) {
+    return <DetailSkeleton />;
+  }
 
   return (
     <View style={s.container}>
@@ -55,10 +56,9 @@ export const ProductDetailScreen = ({ route }: ProductDetailScreenProps) => {
       <Text style={s.title}>{product?.title}</Text>
       <Text style={s.price}>$ {product?.price}</Text>
       <Text style={s.description}>{product?.description}</Text>
+
       <View style={s.buttonCardWrapper}>
         <ButtonPrimary onPress={() => handleAddToCart(product)}>в корзину</ButtonPrimary>
-
-        {/* <ButtonPrimary onPress={() => show()}>посмотреть</ButtonPrimary> */}
       </View>
     </View>
   );

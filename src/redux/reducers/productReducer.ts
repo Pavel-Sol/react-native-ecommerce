@@ -31,6 +31,11 @@ export const productSlice = createSlice({
 
     builder.addCase(getProduct.fulfilled, (state, action) => {
       state.product = action.payload;
+      state.loading = false;
+    });
+
+    builder.addCase(getProduct.pending, (state) => {
+      state.loading = true;
     });
   },
 });
