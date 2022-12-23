@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { Controller, Control } from "react-hook-form";
 import RNPickerSelect from "react-native-picker-select";
 import { AntDesign } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { Colors } from "@app/constants/colors";
 
 interface ISelect {

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { fetchProducts } from "@app/redux/asyncActions";
@@ -16,6 +9,7 @@ import { ProductType } from "@app/types/product";
 import { Card } from "@app/components/cards";
 import { LS } from "@app/utils";
 import { Colors } from "@app/constants/colors";
+import { CardSkeleton } from "@app/components/skeletons/cardSceleton copy";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -46,7 +40,6 @@ export const HomeScreen = ({ navigation }) => {
     let params = `?offset=${offset}&limit=${limit}`;
     if (offset === 0) setProducts([]);
 
-    // console.log("params ", params);
     dispatch(fetchProducts({ params, category }));
   }, [offset, category]);
 
@@ -55,9 +48,15 @@ export const HomeScreen = ({ navigation }) => {
   }, [productsPart]);
 
   const renderLoader = () => {
+    if (!loading) {
+      return null;
+    }
     return (
       <View style={s.loaderWrapper}>
-        {loading && <ActivityIndicator size="large" color="blue" />}
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
+        <CardSkeleton />
       </View>
     );
   };
@@ -105,7 +104,10 @@ const s = StyleSheet.create({
   },
 
   loaderWrapper: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     paddingTop: 16,
-    paddingBottom: 250,
+    paddingBottom: 50,
   },
 });
