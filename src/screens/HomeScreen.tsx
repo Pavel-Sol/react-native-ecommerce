@@ -20,16 +20,6 @@ export const HomeScreen = ({ navigation }) => {
   const category = useAppSelector((state) => state.productFilter.category);
   const cardsInRow = useAppSelector((state) => state.productFilter.cardsInRow);
 
-  const changeRow = () => {
-    if (cardsInRow === 2) {
-      dispatch(setCardsInRow(1));
-    }
-
-    if (cardsInRow === 1) {
-      dispatch(setCardsInRow(2));
-    }
-  };
-
   useEffect(() => {
     const loadCartListFromLS = async () => {
       const jsonCartListFromLS = await LS.getItem("cartList");
@@ -58,9 +48,6 @@ export const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={s.container}>
-      <TouchableOpacity onPress={changeRow}>
-        <Text style={s.filtersButtonText}>change</Text>
-      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("filter")} style={s.filtersButton}>
         <Text style={s.filtersButtonText}>Filters</Text>
         <FontAwesome name="filter" size={24} color={Colors.primary} />
