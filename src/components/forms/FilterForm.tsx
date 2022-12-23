@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector, useOnFocus } from "@app/hooks";
 import { fetchCategories } from "@app/redux/asyncActions";
 import { Select } from "./fields/Select";
 import { setCardsInRow, setCategory } from "@app/redux/reducers/productFilterReducer";
-import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@app/constants/colors";

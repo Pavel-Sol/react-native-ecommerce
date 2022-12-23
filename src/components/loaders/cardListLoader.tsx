@@ -7,7 +7,6 @@ import { HorizontalCardSkeleton } from "./horizontalCardSkeleton";
 export const CardListLoader = () => {
   const loading = useAppSelector((state) => state.product.loading);
   const cardsInRow = useAppSelector((state) => state.productFilter.cardsInRow);
-  console.log("cardsInRow", cardsInRow);
 
   if (!loading) {
     return null;

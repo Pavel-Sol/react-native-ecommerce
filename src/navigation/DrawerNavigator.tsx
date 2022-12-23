@@ -9,6 +9,8 @@ import { CartScreen } from "@app/screens/CartScreen";
 import { CustomDrawer } from "./CustomDrawer";
 import { Colors } from "@app/constants/colors";
 import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native";
 
 const Drawer = createDrawerNavigator<DrawerStackParams>();
 
@@ -17,6 +19,13 @@ export const DrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawer {...props} />}
       screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primary,
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          color: Colors.white,
+        },
         drawerActiveBackgroundColor: Colors.primary,
         drawerActiveTintColor: Colors.white,
         drawerInactiveTintColor: Colors.primary,
@@ -51,16 +60,23 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="productDetail"
         component={ProductDetailScreen}
-        options={({ route, navigation }) => ({
+        options={() => ({
           drawerItemStyle: { display: "none" },
+          headerTitle: "",
         })}
       />
 
       <Drawer.Screen
         name="filter"
         component={FilterScreen}
-        options={() => ({
+        options={({ route, navigation }) => ({
           drawerItemStyle: { display: "none" },
+          headerTitle: "",
+          headerLeft: () => (
+            <TouchableOpacity style={{ marginLeft: 20 }} onPress={navigation.goBack}>
+              <Ionicons name="arrow-back" size={34} color="white" />
+            </TouchableOpacity>
+          ),
         })}
       />
       <Drawer.Screen

@@ -8,7 +8,6 @@ import {
 } from "@react-navigation/drawer";
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { logOut } from "@app/redux/reducers/userReducer";
