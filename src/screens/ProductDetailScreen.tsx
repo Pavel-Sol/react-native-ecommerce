@@ -10,7 +10,7 @@ import { ButtonPrimary } from "@app/components/button/ButtonPrimary";
 import { ProductType } from "@app/types/product";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
-import { DetailSkeleton } from "@app/components/skeletons/detatailSceleton";
+import { DetailSkeleton } from "@app/components/loaders/detailSkeleton";
 
 type ProductDetailScreenProps = NativeStackScreenProps<DrawerStackParams, "productDetail">;
 

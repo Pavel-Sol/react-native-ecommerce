@@ -8,6 +8,7 @@ type initialStateT = {
   limit: number;
   category: null | number;
   categories: CategoryType[];
+  cardsInRow: number;
 };
 
 const initialState: initialStateT = {
@@ -15,6 +16,7 @@ const initialState: initialStateT = {
   limit: 12,
   category: 1,
   categories: [],
+  cardsInRow: 2,
 };
 
 export const productFilterSlice = createSlice({
@@ -28,6 +30,9 @@ export const productFilterSlice = createSlice({
       state.offset = 0;
       state.category = payload;
     },
+    setCardsInRow(state, { payload }: PayloadAction<number>) {
+      state.cardsInRow = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
@@ -36,6 +41,6 @@ export const productFilterSlice = createSlice({
   },
 });
 
-export const { setOffset, setCategory } = productFilterSlice.actions;
+export const { setOffset, setCategory, setCardsInRow } = productFilterSlice.actions;
 
 export default productFilterSlice.reducer;
