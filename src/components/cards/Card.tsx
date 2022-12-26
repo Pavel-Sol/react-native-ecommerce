@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Image, TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { ProductType } from "@app/types/product";
 import { Colors } from "@app/constants/colors";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
@@ -16,7 +16,7 @@ interface ICardProps {
 
 export const Card = ({ item }: ICardProps) => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const cartList = useAppSelector(cartListSelector);
   const matchInCart = cartList.find((elem) => elem.id === item.id);
 
@@ -120,12 +120,6 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  iconLike: {
-    position: "absolute",
-    top: 7,
-    right: 7,
-  },
-
   cartButton: {
     position: "relative",
   },
@@ -137,8 +131,8 @@ const s = StyleSheet.create({
     backgroundColor: Colors.dark,
     color: Colors.white,
     fontSize: 10,
-    paddingHorizontal: 5,
+    paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: 10,
+    borderRadius: 14,
   },
 });

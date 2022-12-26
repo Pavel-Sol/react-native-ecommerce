@@ -9,7 +9,7 @@ import { ProductType } from "@app/types/product";
 import { Card, HorizontalCard } from "@app/components/cards";
 import { LS } from "@app/utils";
 import { Colors } from "@app/constants/colors";
-import { CardListLoader } from "@app/components/loaders/cardListLoader";
+import { CardListLoader } from "@app/components/loaders/CardListLoader";
 import {
   limitSelector,
   offsetSelector,

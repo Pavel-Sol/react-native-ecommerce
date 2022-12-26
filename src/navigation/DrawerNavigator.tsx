@@ -1,11 +1,8 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { HomeScreen } from "@app/screens/HomeScreen";
 import { AuthNavigator } from "./AuthNavigator";
-import { FilterScreen } from "@app/screens/FilterScreen";
-import { ProductDetailScreen } from "@app/screens/ProductDetailScreen";
+import { FilterScreen, CartScreen, HomeScreen, ProductDetailScreen } from "@app/screens";
 import { DrawerStackParams } from "@app/types/navigations";
-import { CartScreen } from "@app/screens/CartScreen";
 import { CustomDrawer } from "./CustomDrawer";
 import { Colors } from "@app/constants/colors";
 import { AntDesign } from "@expo/vector-icons";
@@ -22,7 +19,7 @@ export const DrawerNavigator = () => {
         headerStyle: {
           backgroundColor: Colors.primary,
         },
-        headerTintColor: "#fff",
+        headerTintColor: Colors.white,
         headerTitleStyle: {
           color: Colors.white,
         },
@@ -69,12 +66,12 @@ export const DrawerNavigator = () => {
       <Drawer.Screen
         name="filter"
         component={FilterScreen}
-        options={({ route, navigation }) => ({
+        options={({ navigation }) => ({
           drawerItemStyle: { display: "none" },
           headerTitle: "",
           headerLeft: () => (
             <TouchableOpacity style={{ marginLeft: 20 }} onPress={navigation.goBack}>
-              <Ionicons name="arrow-back" size={34} color="white" />
+              <Ionicons name="arrow-back" size={34} color={Colors.white} />
             </TouchableOpacity>
           ),
         })}

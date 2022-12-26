@@ -2,8 +2,8 @@ import { useAppSelector } from "@app/hooks";
 import { cardsInRowSelector, loadingSelector } from "@app/redux/selectors";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { CardSkeleton } from "./cardSkeleton";
-import { HorizontalCardSkeleton } from "./horizontalCardSkeleton";
+import { CardSkeleton } from "./CardSkeleton";
+import { HorizontalCardSkeleton } from "./HorizontalCardSkeleton";
 
 export const CardListLoader = () => {
   const loading = useAppSelector(loadingSelector);
