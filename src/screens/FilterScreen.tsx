@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { FilterForm } from "@app/components/forms/FilterForm";
 
-export const FilterScreen = ({ navigation }) => {
+export const FilterScreen = () => {
   return (
     <View style={s.container}>
       <FilterForm />

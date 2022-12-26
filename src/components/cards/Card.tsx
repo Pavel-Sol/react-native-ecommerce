@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
+import { cartListSelector } from "@app/redux/selectors";
 
 interface ICardProps {
   item: ProductType;
@@ -16,7 +17,7 @@ interface ICardProps {
 export const Card = ({ item }: ICardProps) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const cartList = useAppSelector((state) => state.cart.cartList);
+  const cartList = useAppSelector(cartListSelector);
   const matchInCart = cartList.find((elem) => elem.id === item.id);
 
   const handleAddToCart = async (product: ProductType) => {
@@ -51,8 +52,6 @@ export const Card = ({ item }: ICardProps) => {
             uri: item.images[0],
           }}
         />
-
-        {/* <AntDesign name="hearto" size={24} color={Colors.primary} style={s.iconLike} /> */}
 
         <View style={s.textContent}>
           <Text style={s.title}>{item.title}</Text>

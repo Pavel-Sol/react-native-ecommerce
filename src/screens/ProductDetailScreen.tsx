@@ -11,15 +11,15 @@ import { ProductType } from "@app/types/product";
 import { LS } from "@app/utils";
 import { setCartList } from "@app/redux/reducers/cartReducer";
 import { DetailSkeleton } from "@app/components/loaders/detailSkeleton";
+import { loadingSelector, productSelector } from "@app/redux/selectors";
 
 type ProductDetailScreenProps = NativeStackScreenProps<DrawerStackParams, "productDetail">;
 
 export const ProductDetailScreen = ({ route }: ProductDetailScreenProps) => {
   const dispatch = useAppDispatch();
   const productId = route.params.productId;
-  const product = useAppSelector((state) => state.product.product);
-  const loading = useAppSelector((state) => state.product.loading);
-  // console.log("product ", product);
+  const product = useAppSelector(productSelector);
+  const loading = useAppSelector(loadingSelector);
 
   useEffect(() => {
     dispatch(getProduct(productId));

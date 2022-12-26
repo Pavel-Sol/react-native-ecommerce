@@ -5,9 +5,10 @@ import { ButtonPrimary } from "@app/components/button/ButtonPrimary";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
+import { usernameSelector } from "@app/redux/selectors";
 
 export const LoginScreen = ({ navigation }) => {
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector(usernameSelector);
 
   // useEffect(() => {
   //   console.log("work");

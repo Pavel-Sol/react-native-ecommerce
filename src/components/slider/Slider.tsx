@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import React, { useRef, useState } from "react";
 import { View, FlatList, StyleSheet, Animated } from "react-native";
 import { SliderItem } from "./SliderItem";
 import { SliderPagination } from "./SliderPagination";
-import { ButtonPrimary } from "../button/ButtonPrimary";
 
 interface ISliderProps {
   data: string[];
@@ -61,7 +59,6 @@ export const Slider = ({ data = [] }: ISliderProps) => {
         />
       </View>
       <SliderPagination data={data} scrollX={scrollX} index={index} />
-      {/* <ButtonPrimary onPress={() => setCount(count + 1)}>+</ButtonPrimary> */}
     </>
   );
 };

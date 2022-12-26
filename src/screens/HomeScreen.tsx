@@ -3,22 +3,29 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native
 import { FontAwesome } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { fetchProducts } from "@app/redux/asyncActions";
-import { setOffset, setCardsInRow } from "@app/redux/reducers/productFilterReducer";
+import { setOffset } from "@app/redux/reducers/productFilterReducer";
 import { setCartList } from "@app/redux/reducers/cartReducer";
 import { ProductType } from "@app/types/product";
 import { Card, HorizontalCard } from "@app/components/cards";
 import { LS } from "@app/utils";
 import { Colors } from "@app/constants/colors";
 import { CardListLoader } from "@app/components/loaders/cardListLoader";
+import {
+  limitSelector,
+  offsetSelector,
+  productsPartSelector,
+  categorySelector,
+  cardsInRowSelector,
+} from "@app/redux/selectors";
 
 export const HomeScreen = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const productsPart = useAppSelector((state) => state.product.productsPart);
+  const productsPart = useAppSelector(productsPartSelector);
   const [products, setProducts] = useState<ProductType[]>([]);
-  const offset = useAppSelector((state) => state.productFilter.offset);
-  const limit = useAppSelector((state) => state.productFilter.limit);
-  const category = useAppSelector((state) => state.productFilter.category);
-  const cardsInRow = useAppSelector((state) => state.productFilter.cardsInRow);
+  const offset = useAppSelector(offsetSelector);
+  const limit = useAppSelector(limitSelector);
+  const category = useAppSelector(categorySelector);
+  const cardsInRow = useAppSelector(cardsInRowSelector);
 
   useEffect(() => {
     const loadCartListFromLS = async () => {
@@ -70,7 +77,6 @@ export const HomeScreen = ({ navigation }) => {
           <FlatList
             data={products}
             renderItem={({ item }) => <Card item={item} />}
-            // keyExtractor={(item) => item.id}
             horizontal={false}
             numColumns={2}
             ListFooterComponent={CardListLoader}

@@ -8,6 +8,7 @@ import { setCardsInRow, setCategory } from "@app/redux/reducers/productFilterRed
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@app/constants/colors";
+import { cardsInRowSelector, categoriesSelector } from "@app/redux/selectors";
 
 type FormData = {
   category: number;
@@ -15,9 +16,9 @@ type FormData = {
 
 export const FilterForm = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.productFilter.categories);
+  const cardsInRow = useAppSelector(cardsInRowSelector);
+  const categories = useAppSelector(categoriesSelector);
   const categoriesOptions = categories.map((item) => ({ label: item.name, value: item.id }));
-  const cardsInRow = useAppSelector((state) => state.productFilter.cardsInRow);
 
   const handleSetCardsInRow = (quantity: number) => {
     dispatch(setCardsInRow(quantity));
@@ -80,7 +81,6 @@ const s = StyleSheet.create({
   },
 
   button: {
-    // backgroundColor: "aqua",
     paddingHorizontal: 40,
   },
 });

@@ -6,10 +6,11 @@ import { Colors } from "@app/constants/colors";
 import { LS } from "@app/utils";
 import { ProductType } from "@app/types/product";
 import { setCartList } from "@app/redux/reducers/cartReducer";
+import { cartListSelector } from "@app/redux/selectors";
 
 export const CartScreen = () => {
   const dispatch = useAppDispatch();
-  const cartList = useAppSelector((state) => state.cart.cartList);
+  const cartList = useAppSelector(cartListSelector);
   const totalPrice = cartList.reduce((acc, item) => acc + item.count * item.price, 0);
 
   const handleIncreaseCount = async (product: ProductType) => {

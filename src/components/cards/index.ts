@@ -1,2 +1,2 @@
 export { Card } from "./Card";
-export { HorizontalCard } from "./horizontalCard";
+export { HorizontalCard } from "./HorizontalCard";

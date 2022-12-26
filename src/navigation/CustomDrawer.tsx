@@ -12,12 +12,13 @@ import { Entypo } from "@expo/vector-icons";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { logOut } from "@app/redux/reducers/userReducer";
 import { LS } from "@app/utils";
+import { usernameSelector } from "@app/redux/selectors";
 
 export const CustomDrawer = (props: DrawerContentComponentProps) => {
   const { navigation } = props;
 
   const dispatch = useAppDispatch();
-  const username = useAppSelector((state) => state.user.username);
+  const username = useAppSelector(usernameSelector);
   const userPhotoSrc = username
     ? {
         uri: "https://livedemo00.template-help.com/wordpress_49080/wp-content/uploads/2014/04/04.jpg",
