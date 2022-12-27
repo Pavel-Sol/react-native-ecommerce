@@ -14,7 +14,7 @@ type initialStateT = {
 const initialState: initialStateT = {
   offset: 0,
   limit: 12,
-  category: 1,
+  category: 2,
   categories: [],
   cardsInRow: 2,
 };

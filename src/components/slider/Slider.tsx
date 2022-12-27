@@ -11,17 +11,6 @@ export const Slider = ({ data = [] }: ISliderProps) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = useState(0);
 
-  // const [count, setCount] = useState(0);
-  // console.log("count ", count);
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     return () => {
-  //       setIndex(0);
-  //     };
-  //   }, [])
-  // );
-
   const handleOnScroll = (event: any) => {
     Animated.event(
       [

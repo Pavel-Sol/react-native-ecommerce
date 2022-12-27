@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@app/hooks";
 import { getProduct } from "@app/redux/asyncActions";
 import { DrawerStackParams } from "@app/types/navigations";

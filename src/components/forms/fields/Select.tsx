@@ -39,8 +39,6 @@ export const Select = ({ control, name, options, callback }: ISelect) => {
         );
       }}
       name={name}
-      // rules={{ required: true }}
-      // defaultValue={action === "Add" ? "" : user.id_role}
     />
   );
 };

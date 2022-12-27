@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { SERVICE_API } from "@app/api";
-import { ProductType } from "@app/types/product";
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async ({ params, category }: { params: string; category: number }, thunkAPI) => {
     try {
       const response = await SERVICE_API.ProductAPI.fetchProducts({ params, category });
-      //  console.log("product/fetchProducts", response.data);
 
       return response.data;
     } catch (error) {
@@ -20,7 +18,6 @@ export const fetchProducts = createAsyncThunk(
 export const getProduct = createAsyncThunk("product/getProduct", async (id: number, thunkAPI) => {
   try {
     const response = await SERVICE_API.ProductAPI.getProduct(id);
-    // console.log("product/getProduct", response.data);
 
     return response.data;
   } catch (error) {
@@ -32,7 +29,6 @@ export const getProduct = createAsyncThunk("product/getProduct", async (id: numb
 export const fetchCategories = createAsyncThunk("product/fetchCategories", async (_, thunkAPI) => {
   try {
     const response = await SERVICE_API.CategoryAPI.fetchCategories();
-    // console.log("fetchCategories", response.data);
 
     return response.data;
   } catch (error) {
